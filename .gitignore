@@ -1,0 +1,163 @@
+
+# Dependencies 
+node_modules/
+.pnpm-store/
+.npm/
+.yarn/
+.yarn-cache/
+
+
+# Environment / SECRETS 
+.env
+.env.*
+!.env.example
+!.env.sample
+
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+
+# Os/Editor
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+.vscode/*
+!.vscode/extension.json
+!.vscode/settings.json
+
+.idea/
+*.swp
+*.swo
+
+
+# Build/Cache
+dist/
+build/
+out/
+.next/
+.turbo/
+.cache/
+.parcel-cache/
+.eslintcache
+
+
+
+# Next.js
+.next/
+.vercel/
+
+
+# Expo /React native
+.expo/
+.expo-shared/
+web-build/
+ios/
+android/
+
+
+
+# Expo generated files
+*.jks
+*.p8
+*.p12
+*.key
+*.moblieprovision
+
+
+# React Native
+.metro-health-check*
+*.hprof
+
+
+# Android
+.gradle/
+local.properties
+*.apk
+*.aab
+*.apks
+
+
+# IOs
+Pods/
+DerivedData/
+*.xcuserstate
+xcuserdata/
+
+
+
+# Testing/coverage
+coverage/
+.nyc_output/
+test-results/
+playwright-report/
+blob-report/
+
+
+# Typescript/javascript generated files 
+*.tsbuildinfo
+
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+
+
+# Database / Local development
+*.sqlite
+*.sqlite3
+*.db
+
+
+# Uploads / User generated files
+uploads/
+tmp/
+temp/
+
+
+
+# AI / ML generated artifacts
+*.pkl
+*.pickle
+*.joblib
+*.pt
+*.pth
+*.onnx
+*.h5
+*.keras
+
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+
+
+# Docker
+docker-data/
+
+
+# Deployment
+.vercel/
+.netlify/
+
+
+
+# Local configuration
+*.local
