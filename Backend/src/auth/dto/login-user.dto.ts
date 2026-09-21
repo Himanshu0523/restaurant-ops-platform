@@ -1,1 +1,1 @@
-export class LoginUserDto {}
+export * from './loginUser.dto.js';

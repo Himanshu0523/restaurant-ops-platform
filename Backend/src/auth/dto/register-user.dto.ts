@@ -1,1 +1,1 @@
-export class RegisterUserDto {}
+export * from './registerUser.dto.js';
