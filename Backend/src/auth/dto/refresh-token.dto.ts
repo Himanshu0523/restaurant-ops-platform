@@ -1,1 +1,1 @@
-export class RefreshTokenDto {}
+export * from './refreshToken.dto.js';

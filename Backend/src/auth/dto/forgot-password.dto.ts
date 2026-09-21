@@ -1,1 +1,1 @@
-export class ForgotPasswordDto {}
+export * from './forgotPassword.dto.js';
