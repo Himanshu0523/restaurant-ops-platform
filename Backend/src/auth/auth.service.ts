@@ -45,7 +45,12 @@ export class AuthService {
     const hashedRefreshToken = await bcrypt.hash(refresh_token, 10);
     await this.userService.updateRefreshToken(userId, hashedRefreshToken);
 
-    return { access_token, refresh_token };
+    return {
+      accessToken: access_token,
+      refreshToken: refresh_token,
+      access_token,
+      refresh_token,
+    };
   }
 
   async registerUser(registerUserDto: RegisterDto) {

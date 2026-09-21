@@ -1,0 +1,197 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  CUSTOMER
+  RESTAURANT_OWNER
+  MANAGER
+  STAFF
+  KITCHEN
+  DELIVERY
+  ADMIN
+}
+
+enum OrderSource {
+  FOLLOWER
+  QR
+  DISCOVERY
+  CREATOR
+  DIRECT
+  WALKIN
+}
+
+enum OrderStatus {
+  PENDING
+  ACCEPTED
+  PREPARING
+  READY
+  DELIVERED
+  CANCELLED
+}
+
+enum LiveStatus {
+  OPEN
+  BUSY
+  PAUSED
+  CLOSED
+}
+
+model User {
+  id               String      @id @default(cuid())
+  email            String      @unique
+  passwordHash     String
+  firstName        String
+  lastName         String
+  phone            String?
+  role             Role        @default(CUSTOMER)
+  emailVerified    Boolean     @default(false)
+  isActive         Boolean     @default(true)
+
+  verifyToken      String?
+  verifyTokenExp   DateTime?
+  resetToken       String?
+  resetTokenExp    DateTime?
+
+  refreshTokenHash String?
+  refreshTokenExp  DateTime?
+
+  tenantId         String?
+  tenant           Tenant?     @relation(fields: [tenantId], references: [id], onDelete: SetNull)
+
+  follows          Follow[]
+  consents         Consent[]
+  orders           Order[]
+
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+
+  @@index([email])
+  @@index([role])
+}
+
+model Tenant {
+  id          String       @id @default(cuid())
+  name        String
+  slug        String       @unique
+  ownerId     String
+  users       User[]
+  restaurants Restaurant[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model Restaurant {
+  id          String     @id @default(cuid())
+  tenantId    String
+  tenant      Tenant     @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  name        String
+  slug        String     @unique
+  description String?
+  cuisine     String[]
+  branches    Branch[]
+  channel     Channel?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Branch {
+  id                 String      @id @default(cuid())
+  restaurantId       String
+  restaurant         Restaurant  @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+  name               String
+  address            String
+  latitude           Float
+  longitude          Float
+  liveStatus         LiveStatus  @default(OPEN)
+  acceptsDelivery    Boolean     @default(true)
+  acceptsReservations Boolean    @default(true)
+  orders             Order[]
+  createdAt          DateTime    @default(now())
+  updatedAt          DateTime    @updatedAt
+
+  @@index([latitude, longitude])
+}
+
+model Channel {
+  id            String     @id @default(cuid())
+  restaurantId  String     @unique
+  restaurant    Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+  handle        String     @unique
+  followerCount Int        @default(0)
+  follows       Follow[]
+  posts         Post[]
+  drops         Drop[]
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+}
+
+model Follow {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  channelId String
+  channel   Channel  @relation(fields: [channelId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, channelId])
+}
+
+model Consent {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  purpose   String
+  granted   Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Post {
+  id        String   @id @default(cuid())
+  channelId String
+  channel   Channel  @relation(fields: [channelId], references: [id], onDelete: Cascade)
+  caption   String?
+  dishIds   String[]
+  media     Media[]
+  createdAt DateTime @default(now())
+}
+
+model Media {
+  id        String   @id @default(cuid())
+  postId    String?
+  post      Post?    @relation(fields: [postId], references: [id], onDelete: Cascade)
+  url       String
+  type      String   @default("IMAGE")
+  createdAt DateTime @default(now())
+}
+
+model Drop {
+  id        String   @id @default(cuid())
+  channelId String
+  channel   Channel  @relation(fields: [channelId], references: [id], onDelete: Cascade)
+  title     String
+  dishId    String
+  discount  Float
+  startTime DateTime
+  endTime   DateTime
+  createdAt DateTime @default(now())
+}
+
+model Order {
+  id         String      @id @default(cuid())
+  userId     String
+  user       User        @relation(fields: [userId], references: [id])
+  branchId   String
+  branch     Branch      @relation(fields: [branchId], references: [id])
+  source     OrderSource @default(DIRECT)
+  status     OrderStatus @default(PENDING)
+  total      Float
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+}

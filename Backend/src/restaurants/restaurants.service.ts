@@ -5,8 +5,8 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { FilterQuery, Model, Types } from 'mongoose';
-import { Restaurant, RestaurantDocument } from './schemas/restaurant.schema.js';
+import { Model, Types } from 'mongoose';
+import { Restaurant, RestaurantDocument } from './schemas/restaurants.schema.js';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto.js';
 import { UpdateRestaurantDto } from './dto/update-restaurant.dto.js';
 import { RestaurantQueryDto } from './dto/restaurant-query.dto.js';
@@ -55,7 +55,7 @@ export class RestaurantsService {
       return { data: [], total: 0, page: 1, limit: 20 };
     }
 
-    const filter: FilterQuery<RestaurantDocument> = {
+    const filter: Record<string, any> = {
       tenantId: new Types.ObjectId(tenantId),
       deletedAt: null,
     };

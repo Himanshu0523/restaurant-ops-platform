@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Restaurant, RestaurantSchema } from './schemas/restaurant.schema.js';
+import { Restaurant, RestaurantSchema } from './schemas/restaurants.schema.js';
 import { RestaurantsController } from './restaurants.controller.js';
 import { RestaurantsService } from './restaurants.service.js';
 import { UserModule } from '../user/user.module.js';

@@ -13,10 +13,12 @@ export class UserService {
   ) {}
 
   async createUser(registerUserDto: RegisterDto) {
+    const fname = registerUserDto.fname || registerUserDto.firstName || '';
+    const lname = registerUserDto.lname || registerUserDto.lastName || '';
     try {
       return await this.UserModel.create({
-        fname: registerUserDto.fname,
-        lname: registerUserDto.lname,
+        fname,
+        lname,
         email: registerUserDto.email,
         password: registerUserDto.password,
       });
