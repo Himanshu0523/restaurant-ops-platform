@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { Badge } from "@/components/ui/Badge";
 
-export default function ChannelAboutPage({ params }) {
-  const handle = params?.handle || "demo-restaurant";
+export default async function ChannelAboutPage({ params }) {
+  const resolvedParams = await params;
+  const handle = resolvedParams?.handle || "demo-restaurant";
 
   return (
     <div className="max-w-3xl mx-auto space-y-8 pb-12">

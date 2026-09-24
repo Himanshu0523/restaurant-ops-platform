@@ -1,0 +1,11 @@
+export const INVENTORY_DEFAULTS = {
+  REORDER_LEVEL: 0,
+  REORDER_QUANTITY: 0,
+  RESERVED_QUANTITY: 0,
+  MIN_QUANTITY: 0,
+} as const;
+
+export const INVENTORY_LIMITS = {
+  MAX_QUERY_LIMIT: 100,
+  DEFAULT_QUERY_LIMIT: 20,
+} as const;

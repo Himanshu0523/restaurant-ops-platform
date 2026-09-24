@@ -1,49 +1,63 @@
 import {
   Body,
   Controller,
-  Delete,
   Get,
-  HttpCode,
-  HttpStatus,
+  Param,
   Patch,
   Post,
-  Request,
   UseGuards,
 } from '@nestjs/common';
-import { Request as ExpressRequest } from 'express';
-import { AuthGuard } from '../auth/auth.guard.js';
+
 import { TenantsService } from './tenants.service.js';
 import { CreateTenantDto } from './dto/create-tenant.dto.js';
 import { UpdateTenantDto } from './dto/update-tenant.dto.js';
+import { UpdateTenantSettingsDto } from './dto/update-tenant-settings.dto.js';
+import { AuthGuard } from '../auth/auth.guard.js';
+import { CurrentUser } from '../auth/decorators/current-user.decorator.js';
 
-type AuthedRequest = ExpressRequest & { user: { sub: string; email: string } };
-
-@UseGuards(AuthGuard)
 @Controller('tenants')
+@UseGuards(AuthGuard)
 export class TenantsController {
-    constructor(private readonly tenantsService: TenantsService) {}
+  constructor(
+    private readonly tenantsService: TenantsService,
+  ) {}
 
-    @Post()
-    async create(@Request() req: AuthedRequest, @Body() dto: CreateTenantDto) {
-        return this.tenantsService.create(req.user.sub, dto);
-    }
+  @Post()
+  async create(
+    @CurrentUser('sub') userId: string,
+    @Body() dto: CreateTenantDto,
+  ) {
+    return this.tenantsService.create(userId, dto);
+  }
 
-    @Get('me')
-    async findMine(@Request() req: AuthedRequest) {
-        return this.tenantsService.findMine(req.user.sub);
-    }
+  @Get('mine')
+  async findMine(
+    @CurrentUser('sub') userId: string,
+  ) {
+    return this.tenantsService.findByOwner(userId);
+  }
 
-    @Patch('me')
-    async updateMine(
-        @Request() req: AuthedRequest,
-        @Body() dto: UpdateTenantDto,
-    ) {
-        return this.tenantsService.updateMine(req.user.sub, dto);
-    }
+  @Get(':tenantId')
+  async findOne(
+    @Param('tenantId') tenantId: string,
+  ) {
+    const tenant = await this.tenantsService.findById(tenantId);
+    return this.tenantsService.toSafeTenant(tenant);
+  }
 
-    @HttpCode(HttpStatus.OK)
-    @Delete('me')
-    async deleteMine(@Request() req: AuthedRequest) {
-        return this.tenantsService.softDeleteMine(req.user.sub);
-    }
+  @Patch(':tenantId')
+  async update(
+    @Param('tenantId') tenantId: string,
+    @Body() dto: UpdateTenantDto,
+  ) {
+    return this.tenantsService.update(tenantId, dto);
+  }
+
+  @Patch(':tenantId/settings')
+  async updateSettings(
+    @Param('tenantId') tenantId: string,
+    @Body() dto: UpdateTenantSettingsDto,
+  ) {
+    return this.tenantsService.updateSettings(tenantId, dto);
+  }
 }

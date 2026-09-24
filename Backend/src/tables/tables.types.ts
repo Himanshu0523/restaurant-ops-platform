@@ -1,0 +1,24 @@
+export enum TableStatus {
+  AVAILABLE = 'AVAILABLE',
+  OCCUPIED = 'OCCUPIED',
+  RESERVED = 'RESERVED',
+  CLEANING = 'CLEANING',
+  OUT_OF_SERVICE = 'OUT_OF_SERVICE',
+  BLOCKED = 'BLOCKED',
+}
+
+export enum TableType {
+  STANDARD = 'STANDARD',
+  BOOTH = 'BOOTH',
+  BAR = 'BAR',
+  OUTDOOR = 'OUTDOOR',
+  PRIVATE_ROOM = 'PRIVATE_ROOM',
+}
+
+export enum TableShape {
+  SQUARE = 'SQUARE',
+  RECTANGLE = 'RECTANGLE',
+  ROUND = 'ROUND',
+  OVAL = 'OVAL',
+  CUSTOM = 'CUSTOM',
+}

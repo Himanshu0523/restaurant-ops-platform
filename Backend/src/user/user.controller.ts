@@ -1,12 +1,21 @@
-import { Body, Controller, Get, NotFoundException, Patch, UseGuards } from '@nestjs/common';
-import { AuthGuard } from '../auth/auth.guard.js';
-import { CurrentUser } from '../auth/decorators/current-user.decorator.js';
+import {
+  Body,
+  Controller,
+  Get,
+  Patch,
+  UseGuards,
+  NotFoundException,
+} from '@nestjs/common';
+
 import { UserService } from './user.service.js';
 import { UpdateProfileDto } from './dto/update-profile.dto.js';
+import { UpdatePreferencesDto } from './dto/update-preferences.dto.js';
+import { AuthGuard } from '../auth/auth.guard.js';
+import { CurrentUser } from '../auth/decorators/current-user.decorator.js';
 import type { JwtPayload } from '../auth/decorators/current-user.decorator.js';
 
-@UseGuards(AuthGuard)
 @Controller('users')
+@UseGuards(AuthGuard)
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
@@ -17,10 +26,31 @@ export class UserController {
     return this.userService.toSafeUser(doc);
   }
 
+  @Patch('profile')
+  async updateProfile(
+    @CurrentUser() user: JwtPayload,
+    @Body() dto: UpdateProfileDto,
+  ) {
+    return await this.userService.updateProfile(user.sub, dto);
+  }
+
   @Patch('me')
-  async updateMe(@CurrentUser() user: JwtPayload, @Body() dto: UpdateProfileDto) {
-    const updated = await this.userService.updateProfile(user.sub, dto);
-    if (!updated) throw new NotFoundException('User not found');
-    return updated;
+  async updateMe(
+    @CurrentUser() user: JwtPayload,
+    @Body() dto: UpdateProfileDto,
+  ) {
+    return await this.userService.updateProfile(user.sub, dto);
+  }
+
+  @Patch('preferences')
+  async updatePreferences(
+    @CurrentUser() user: JwtPayload,
+    @Body() dto: UpdatePreferencesDto,
+  ) {
+    return await this.userService.updatePreferences(user.sub, dto);
   }
 }
+
+// Backward compatibility export aliases
+export const UsersController = UserController;
+export type UsersController = UserController;

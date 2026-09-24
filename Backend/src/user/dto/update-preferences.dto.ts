@@ -1,28 +1,25 @@
-import { IsArray, IsEnum, IsOptional, IsString } from 'class-validator';
+import {
+  ArrayUnique,
+  IsArray,
+  IsEnum,
+  IsOptional,
+} from 'class-validator';
 
-export enum DietPreference {
-  VEG = 'Veg',
-  NON_VEG = 'Non-Veg',
-  JAIN = 'Jain',
-  VEGAN = 'Vegan',
-  HALAL = 'Halal',
-}
+import {
+  Allergen,
+  DietaryPreference,
+} from '../user.types.js';
 
 export class UpdatePreferencesDto {
   @IsOptional()
-  @IsEnum(DietPreference)
-  diet?: DietPreference;
+  @IsArray()
+  @ArrayUnique()
+  @IsEnum(DietaryPreference, { each: true })
+  dietaryPreferences?: DietaryPreference[];
 
   @IsOptional()
   @IsArray()
-  @IsString({ each: true })
-  allergens?: string[];
-
-  @IsOptional()
-  @IsString()
-  language?: string;
-
-  @IsOptional()
-  @IsString()
-  theme?: string;
+  @ArrayUnique()
+  @IsEnum(Allergen, { each: true })
+  excludedAllergens?: Allergen[];
 }

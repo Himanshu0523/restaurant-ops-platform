@@ -1,1 +1,16 @@
-export class UpdateUserDto {}
+import {
+  IsEnum,
+  IsOptional,
+} from 'class-validator';
+
+import { UserRole, UserStatus } from '../user.types.js';
+
+export class UpdateUserDto {
+  @IsOptional()
+  @IsEnum(UserRole)
+  role?: UserRole;
+
+  @IsOptional()
+  @IsEnum(UserStatus)
+  status?: UserStatus;
+}

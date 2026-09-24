@@ -31,8 +31,9 @@ import { CouponsModule } from './coupons/coupons.module.js';
 import { LoyaltyModule } from './loyalty/loyalty.module.js';
 import { AuditModule } from './audit/audit.module.js';
 import { HealthModule } from './health/health.module.js';
-import { TablesController } from './tables/tables.controller.js';
-import { TablesService } from './tables/tables.service.js';
+import { TablesModule } from './tables/tables.module.js';
+
+import { DropsModule } from './drops/drops.module.js';
 
 @Module({
   imports: [
@@ -47,6 +48,7 @@ import { TablesService } from './tables/tables.service.js';
     MenuModule,
     IngredientsModule,
     InventoryModule,
+    DropsModule,
     ReservationsModule,
     OrdersModule,
     KitchenModule,
@@ -64,8 +66,9 @@ import { TablesService } from './tables/tables.service.js';
     LoyaltyModule,
     AuditModule,
     HealthModule,
+    TablesModule,
   ],
-  controllers: [AppController, TablesController],
-  providers: [AppService, TablesService],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
