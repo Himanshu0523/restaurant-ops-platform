@@ -1,0 +1,21 @@
+export const DEFAULT_RESERVATION_DURATION_MINUTES = 90;
+
+export const DEFAULT_SLOT_GRANULARITY_MINUTES = 15;
+
+export const MAX_RESERVATION_DAYS_AHEAD = 90;
+
+export const RESERVATION_NUMBER_PREFIX = 'RSV';
+
+export const RESERVATION_ACTIVE_STATUSES = [
+  'PENDING',
+  'CONFIRMED',
+  'CHECKED_IN',
+  'SEATED',
+] as const;
+
+export const RESERVATION_TERMINAL_STATUSES = [
+  'COMPLETED',
+  'CANCELLED',
+  'NO_SHOW',
+  'EXPIRED',
+] as const;

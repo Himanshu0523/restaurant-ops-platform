@@ -1,0 +1,16 @@
+export const DEFAULT_DELIVERY_ETA_MINUTES = 30;
+
+export const MAX_DELIVERY_RADIUS_KM = 25;
+
+export const LOCATION_UPDATE_INTERVAL_SECONDS = 10;
+
+export const DELIVERY_NUMBER_PREFIX = 'DLV';
+
+export const ACTIVE_DELIVERY_STATUSES = [
+    'ASSIGNED',
+    'ACCEPTED',
+    'READY_FOR_PICKUP',
+    'PICKED_UP',
+    'OUT_FOR_DELIVERY',
+    'ARRIVED',
+] as const;

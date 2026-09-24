@@ -1,0 +1,11 @@
+export const INGREDIENT_DEFAULTS = {
+    STATUS: 'ACTIVE',
+    UNIT: 'GRAM',
+    STORAGE_TYPE: 'AMBIENT',
+} as const;
+
+export const INGREDIENT_LIMITS = {
+    MAX_NAME_LENGTH: 150,
+    MAX_DESCRIPTION_LENGTH: 500,
+    MAX_SKU_LENGTH: 100,
+} as const;

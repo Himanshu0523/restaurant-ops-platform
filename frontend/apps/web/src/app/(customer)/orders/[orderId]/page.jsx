@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, use } from "react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/Badge";
 
 export default function OrderTrackingPage({ params }) {
-  const orderId = params?.orderId || "ORD-9901";
+  const resolvedParams = params ? (typeof params.then === "function" ? use(params) : params) : {};
+  const orderId = resolvedParams?.orderId || "ORD-9901";
   const [status, setStatus] = useState("PREPARING"); // ACCEPTED | PREPARING | READY | COMPLETED
 
   return (

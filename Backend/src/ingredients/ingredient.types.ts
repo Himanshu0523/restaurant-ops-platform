@@ -1,0 +1,39 @@
+export enum IngredientStatus {
+  ACTIVE = 'ACTIVE',
+  INACTIVE = 'INACTIVE',
+  DISCONTINUED = 'DISCONTINUED',
+}
+
+export enum IngredientCategory {
+  VEGETABLE = 'VEGETABLE',
+  FRUIT = 'FRUIT',
+  GRAIN = 'GRAIN',
+  DAIRY = 'DAIRY',
+  MEAT = 'MEAT',
+  SEAFOOD = 'SEAFOOD',
+  SPICE = 'SPICE',
+  SAUCE = 'SAUCE',
+  BEVERAGE = 'BEVERAGE',
+  OIL = 'OIL',
+  SWEETENER = 'SWEETENER',
+  PACKAGING = 'PACKAGING',
+  OTHER = 'OTHER',
+}
+
+export enum MeasurementUnit {
+  GRAM = 'GRAM',
+  KILOGRAM = 'KILOGRAM',
+  MILLILITER = 'MILLILITER',
+  LITER = 'LITER',
+  PIECE = 'PIECE',
+  PACK = 'PACK',
+  BOTTLE = 'BOTTLE',
+  BOX = 'BOX',
+}
+
+export enum StorageType {
+  AMBIENT = 'AMBIENT',
+  REFRIGERATED = 'REFRIGERATED',
+  FROZEN = 'FROZEN',
+  DRY_STORAGE = 'DRY_STORAGE',
+}

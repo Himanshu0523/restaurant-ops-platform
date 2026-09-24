@@ -1,12 +1,14 @@
-export enum TenantPlan {
-    FREE = 'free',
-    PRO = 'pro',
-    ENTERPRISE = 'enterprise',
+export enum TenantStatus { 
+    ACTIVE = 'ACTIVE',
+    INACTIVE = 'INACTIVE',
+    SUSPENDED = 'SUSPENDED',
+    PENDING = 'PENDING',
+    DELETED = 'DELETED',
 }
 
-export enum TenantStatus {
-    TRIAL = 'trial',
-    ACTIVE = 'active',
-    SUSPENDED = 'suspended',
-    CANCELLED = 'cancelled',
+export enum TenantPlan {
+    FREE = 'FREE',
+    STARTER = 'STARTER',
+    GROWTH = 'GROWTH',
+    ENTERPRISE = 'ENTERPRISE',
 }

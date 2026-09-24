@@ -4,12 +4,12 @@ export class UpdateProfileDto {
     @IsOptional()
     @IsString()
     @MinLength(1)
-    @MaxLength(60)
+    @MaxLength(50)
     fname?: string;
 
     @IsOptional()
     @IsString()
     @MinLength(1)
-    @MaxLength(60)
+    @MaxLength(50)
     lname?: string;
 }

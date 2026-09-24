@@ -1,18 +1,28 @@
-import { IsEnum, IsOptional, IsString, MaxLength, MinLength } from 'class-validator';
-import { TenantPlan, TenantStatus } from '../tenant.types.js';
+import {
+  IsEmail,
+  IsOptional,
+  IsString,
+  Length,
+  MaxLength,
+} from 'class-validator';
 
 export class UpdateTenantDto {
-    @IsOptional()
-    @IsString()
-    @MinLength(2)
-    @MaxLength(80)
-    name?: string;
 
-    @IsOptional()
-    @IsEnum(TenantPlan)
-    plan?: TenantPlan;
+  @IsOptional()
+  @IsString()
+  @Length(2, 100)
+  name?: string;
 
-    @IsOptional()
-    @IsEnum(TenantStatus)
-    status?: TenantStatus;
+  @IsOptional()
+  @IsString()
+  @MaxLength(500)
+  description?: string;
+
+  @IsOptional()
+  @IsEmail()
+  email?: string;
+
+  @IsOptional()
+  @IsString()
+  phone?: string;
 }
